@@ -1,9 +1,13 @@
 
 
-const favString = localStorage.getItem("fav")
+const favString = localStorage.getItem("fav");
+
+var favourites = [];
 
 // Retrieved array
-const favourites = JSON.parse(favString);
+if(favString){
+	favourites = JSON.parse(favString);
+}
 
 
 const searchBar = document.getElementById('searchBar');
@@ -13,26 +17,25 @@ const favBtn = document.getElementsByClassName('cardBtn');
 
 function addHeroToDisplay(hero){
     // creating html element 'li'
-	var a=document.createElement('a');
+	var div=document.createElement('div');
     // inner data of div element
     // with alarm time and a delete button
-	a.classList.add('text-decoration-none');
-	a.setAttribute('href',`./Pages/Superhero.html`);
+	div.classList.add("card","mb-3","cardItem");
+	div.setAttribute('value',hero.id);
 
-	a.innerHTML=`
-			<div class="card mb-3 cardItem">
-				<img src=${hero.thumbnail.path}.${hero.thumbnail.extension} class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">${hero.name}</h5>
-					<a href="#">
-					<button value=${hero.id} class="btn btn-dark cardBtn">Add to Favourite</button>
-					</a>
-				</div>
+	div.innerHTML=`
+			<img src=${hero.thumbnail.path}.${hero.thumbnail.extension} 
+				class="card-img-top" alt="${hero.name}" 
+				value=${hero.id} >
+
+			<div class="card-body">
+				<h5 class="card-title" value=${hero.id} >${hero.name}</h5>
+				<button value=${hero.id} class="btn btn-dark cardBtn">Add to Favourite</button>
 			</div>
 	`;
 
     // the the alarm inside the div
-	listContainer.append(a);
+	listContainer.append(div);
 	return;
 
 }
@@ -128,15 +131,24 @@ function iconClick(event){
 	if(target.className === "btn btn-dark cardBtn"){
 		event.preventDefault();
 		let found = false;
-		favourites.map((hero) => {
-			if(hero.id === Number(target.value)){
-				console.log("Already in Favourites !");
-				found = true;
-			}
-		})
+		if(favourites !== null){
+			favourites.map((hero) => {
+				if(hero.id === Number(target.value)){
+					console.log("Already in Favourites !");
+					found = true;
+				}
+			})
+		}
 		if(!found){
 			fetchBYId(target.value);
 		}
+		return;
+	}
+
+	else if(target.className === "card-img-top" || target.className === "card-title"){
+		const heroId = target.getAttribute('value');
+		localStorage.setItem('heroId',heroId);
+		window.location.href = "../../Pages/Superhero.html";
 		return;
 	}
 }
