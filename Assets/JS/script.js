@@ -1,5 +1,10 @@
 
 
+const favString = localStorage.getItem("fav")
+
+// Retrieved array
+const favourites = JSON.parse(favString);
+
 
 const searchBar = document.getElementById('searchBar');
 const searchBtn = document.getElementById('searchBtn');
@@ -58,7 +63,6 @@ const fetchCharacterNameStartWith = (name) => {
 		}).then(function (data) {
 			// This is the JSON from our response
 			const list = [...data.data.results];
-			console.log(list);
 			renderList(list);
 		}).catch(function (err) {
 			// There was an error
@@ -73,38 +77,71 @@ searchBar.addEventListener("input",() => {
 
 
 fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
-	.then(function (response) {
+.then(function (response) {
 
-		// The API call was successful!
-		if (response.ok) {
-			return response.json();
-		}
+	// The API call was successful!
+	if (response.ok) {
+		return response.json();
+	}
 
-		// There was an error
-		return Promise.reject(response);
+	// There was an error
+	return Promise.reject(response);
 
-	}).then(function (data) {
-		// This is the JSON from our response
-		const list = [...data.data.results];
-		renderList(list);
-	}).catch(function (err) {
-		// There was an error
-		console.warn('Something went wrong.', err);
-	});
+}).then(function (data) {
+	// This is the JSON from our response
+	const list = [...data.data.results];
+	renderList(list);
+}).catch(function (err) {
+	// There was an error
+	console.warn('Something went wrong.', err);
+});
 
 
-// function for handling click events on list icons 
+
+const fetchBYId = (heroId) => {
+	fetch(`https://gateway.marvel.com:443/v1/public/characters/${heroId}?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
+.then(function (response) {
+
+	// The API call was successful!
+	if (response.ok) {
+		return response.json();
+	}
+
+	// There was an error
+	return Promise.reject(response);
+
+}).then(function (data) {
+	// This is the JSON from our response
+	favourites.push(data.data.results[0]);
+	let favString = JSON.stringify(favourites);
+	localStorage.setItem("fav", favString);
+}).catch(function (err) {
+	// There was an error
+	console.warn('Something went wrong.', err);
+});
+}
+
+
+// function for handling click events on different icons 
 function iconClick(event){
 	const target=event.target;
 	if(target.className === "btn btn-dark cardBtn"){
-		console.log(target.value);
-		return;
-	}
-
-	else if(target.className === "custom_check"){
-		changeTaskStatus(target.id);
+		event.preventDefault();
+		let found = false;
+		favourites.map((hero) => {
+			if(hero.id === Number(target.value)){
+				console.log("Already in Favourites !");
+				found = true;
+			}
+		})
+		if(!found){
+			fetchBYId(target.value);
+		}
 		return;
 	}
 }
 
 document.addEventListener('click',iconClick);
+
+
+// module.exports = {favourites};
