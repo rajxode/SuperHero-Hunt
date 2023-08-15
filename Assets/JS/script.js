@@ -58,82 +58,53 @@ const renderList = (list) => {
 }
 
 
-const fetchCharacterNameStartWith = (name) => {
-	fetch(`https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${name}&ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
-		.then(function (response) {
-
-			// The API call was successful!
-			if (response.ok) {
-				return response.json();
-			}
-
-			// There was an error
-			return Promise.reject(response);
-
-		}).then(function (data) {
-			// This is the JSON from our response
-			const list = [...data.data.results];
-			renderList(list);
-		}).catch(function (err) {
-			// There was an error
-			console.warn('Something went wrong.', err);
-		});
+const fetchCharacterNameStartWith = async (url) => {
+	try{
+		const response = await fetch(`https://gateway.marvel.com:443/v1/public/characters${url}&ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`);
+		const data = await response.json();
+		const list = [...data.data.results];
+		renderList(list);
+	}catch(err) {
+		// There was an error
+		console.warn('Something went wrong.', err);
+	}
 }
 
 searchBar.addEventListener("input",() => {
-	fetchCharacterNameStartWith(searchBar.value);
+	const url = `?nameStartsWith=${searchBar.value}`
+	fetchCharacterNameStartWith(url);
 })
 
 
 
-fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
-.then(function (response) {
-
-	// The API call was successful!
-	if (response.ok) {
-		return response.json();
+const fetchApi = async (url) => {
+	try{
+		const response = await fetch(`https://gateway.marvel.com:443/v1/public/characters${url}ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
+		const data = await response.json();
+		const list = [...data.data.results];
+		renderList(list);
+	}catch(err) {
+		// There was an error
+		console.warn('Something went wrong.', err);
 	}
-
-	// There was an error
-	return Promise.reject(response);
-
-}).then(function (data) {
-	// This is the JSON from our response
-	const list = [...data.data.results];
-	renderList(list);
-}).catch(function (err) {
-	// There was an error
-	console.warn('Something went wrong.', err);
-});
+}
 
 
-
-const fetchBYId = (heroId) => {
-	fetch(`https://gateway.marvel.com:443/v1/public/characters/${heroId}?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
-.then(function (response) {
-
-	// The API call was successful!
-	if (response.ok) {
-		return response.json();
+const fetchBYId = async (url) => {
+	try{
+		const response = await fetch(`https://gateway.marvel.com:443/v1/public/characters${url}ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
+		const data = await response.json();
+		favourites.push(data.data.results[0]);
+		let favString = JSON.stringify(favourites);
+		localStorage.setItem("fav", favString);
+	}catch(err){
+		console.warn('Something went wrong.', err);
 	}
-
-	// There was an error
-	return Promise.reject(response);
-
-}).then(function (data) {
-	// This is the JSON from our response
-	favourites.push(data.data.results[0]);
-	let favString = JSON.stringify(favourites);
-	localStorage.setItem("fav", favString);
-}).catch(function (err) {
-	// There was an error
-	console.warn('Something went wrong.', err);
-});
 }
 
 
 // function for handling click events on different icons 
-function iconClick(event){
+const iconClick = (event) =>{
 	const target=event.target;
 	if(target.className === "btn btn-dark cardBtn"){
 		event.preventDefault();
@@ -141,15 +112,15 @@ function iconClick(event){
 		if(favourites !== null){
 			favourites.map((hero) => {
 				if(hero.id === Number(target.value)){
-					toastContainer.classList.add('bg-danger');
-					toastContainer.classList.add('text-emphasis-danger');
+					toastContainer.classList.add('bg-danger','text-emphasis-danger');
 					toastMessage.innerHTML='Hero Already in your favourite list.';			
 					found = true;
 				}
 			})
 		}
 		if(!found){
-			fetchBYId(target.value);
+			const url = `/${target.value}?`;
+			fetchBYId(url);
 			toastContainer.classList.add('bg-success','text-emphasis-success');
 			toastMessage.innerHTML='Hero added to your favourite list.';
 		}
@@ -167,3 +138,11 @@ function iconClick(event){
 
 document.addEventListener('click',iconClick);
 
+
+const initialize = () => {
+	const url = `?`;
+	fetchApi(url);
+}
+
+
+initialize();

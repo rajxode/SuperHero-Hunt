@@ -2,6 +2,32 @@
 const heroId = localStorage.getItem('heroId');
 const container = document.getElementById('infoCardContainer');
 
+const pageTitle = document.querySelector('title');
+
+
+const addCardToDisplay = () => {
+
+}
+
+
+const renderComics= (comicsList) => {
+    comicsList.map((comic) => 
+        console.log(comic)
+    )
+}
+
+const renderSeries= (seriesList) => {
+    seriesList.map((series) => 
+        console.log(series)
+    )
+}
+
+const renderStories= (storiesList) => {
+    storiesList.map((story) => 
+        console.log(story)
+    )
+}
+
 
 const renderHeroInfo = (hero) => {
     console.log(hero);
@@ -35,23 +61,28 @@ const renderHeroInfo = (hero) => {
 	return;
 }
 
-
-fetch(`https://gateway.marvel.com:443/v1/public/characters/${heroId}?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`)
-    .then(function (response) {
-
-        // The API call was successful!
-        if (response.ok) {
-            return response.json();
-        }
-
-        // There was an error
-        return Promise.reject(response);
-
-    }).then(function (data) {
-        // This is the JSON from our response
-        const hero = data.data.results[0];
-        renderHeroInfo(hero);
-    }).catch(function (err) {
-        // There was an error
+const fetchApi = async (urlString) => {
+    try{
+        const response = await fetch(`https://gateway.marvel.com:443/v1/public/${urlString}?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`);
+        const data = await response.json();
+        const hero = data.data.results[0];    
+        return hero;
+    }catch(err){
         console.warn('Something went wrong.', err);
-});
+    }
+}
+
+const initialize = () => {
+    const url = `characters/${heroId}`;
+    const result = fetchApi(url);
+    result.then(function(hero){
+        pageTitle.innerHTML = `${hero.name} | Superhero`;
+        renderHeroInfo(hero);
+        renderStories(hero.stories.items);
+        renderSeries(hero.series.items);
+        renderComics(hero.comics.items);
+    })
+}
+
+
+initialize();

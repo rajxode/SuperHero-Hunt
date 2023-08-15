@@ -10,6 +10,11 @@ const pageHeading = document.getElementById('pageHeading');
 const favContainer = document.getElementById('heroContainer');
 
 
+const toastContainer = document.querySelector('.toast');
+const toast = new bootstrap.Toast(toastContainer);
+const toastMessage = document.querySelector('.toast-body');
+
+
 const addFavToDisplay = (hero) => {
     var div=document.createElement('div');
     // inner data of div element
@@ -54,6 +59,9 @@ const removeFromFav = (heroId) => {
     favourites=newFav;
     let favString = JSON.stringify(favourites);
 	localStorage.setItem("fav", favString);
+    toastContainer.classList.add('bg-success','text-emphasis-success');
+    toastMessage.innerHTML='Hero Removed from your favourite list.';
+    toast.show();
     renderFavouriteList();
     return;
 }
