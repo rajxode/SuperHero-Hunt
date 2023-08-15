@@ -10,6 +10,11 @@ if(favString){
 }
 
 
+const toastContainer = document.querySelector('.toast');
+const toast = new bootstrap.Toast(toastContainer);
+const toastMessage = document.querySelector('.toast-body');
+
+
 const searchBar = document.getElementById('searchBar');
 const searchBtn = document.getElementById('searchBtn');
 const listContainer = document.getElementById('heroContainer');
@@ -30,7 +35,9 @@ function addHeroToDisplay(hero){
 
 			<div class="card-body">
 				<h5 class="card-title" value=${hero.id} >${hero.name}</h5>
-				<button value=${hero.id} class="btn btn-dark cardBtn">Add to Favourite</button>
+				<button value=${hero.id} class="btn btn-dark cardBtn">
+						Add to Favourite
+				</button>
 			</div>
 	`;
 
@@ -134,14 +141,19 @@ function iconClick(event){
 		if(favourites !== null){
 			favourites.map((hero) => {
 				if(hero.id === Number(target.value)){
-					console.log("Already in Favourites !");
+					toastContainer.classList.add('bg-danger');
+					toastContainer.classList.add('text-emphasis-danger');
+					toastMessage.innerHTML='Hero Already in your favourite list.';			
 					found = true;
 				}
 			})
 		}
 		if(!found){
 			fetchBYId(target.value);
+			toastContainer.classList.add('bg-success','text-emphasis-success');
+			toastMessage.innerHTML='Hero added to your favourite list.';
 		}
+		toast.show();
 		return;
 	}
 
@@ -155,5 +167,3 @@ function iconClick(event){
 
 document.addEventListener('click',iconClick);
 
-
-// module.exports = {favourites};

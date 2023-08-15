@@ -29,9 +29,9 @@ const renderHeroInfo = (hero) => {
             </div>
         </div>
 	`;
-
     // the the alarm inside the div
 	container.append(div);
+    
 	return;
 }
 
