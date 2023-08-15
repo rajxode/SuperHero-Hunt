@@ -1,14 +1,25 @@
+
+/* background color for big info card of a hero */
 .cardBg{
     background: linear-gradient(162deg, rgba(204,88,88,1) 30%, rgba(107,33,33,1) 92%);
     box-shadow: 0px 0px 7px 2px #612424;
 }
 
 
+/* links inside the info card of hero */
 .card-title a {
     text-decoration: none;
     color: black;
 }
 
+/* change color on hovering of links */
 .card-title a:hover{
     text-decoration: underline;
+}
+
+
+/* for images in subheading of hero page */
+.heading-icon{
+    width: 55px;
+    height: 45px;
 }

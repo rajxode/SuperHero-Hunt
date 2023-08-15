@@ -53,12 +53,12 @@ const renderHeroInfo = (hero) => {
                         </a>
                     </h5>
                     <h5 class="card-title">
-                        <a href="#seriesContainer">
+                        <a href="#comicsContainer">
                             Comics: ${hero.comics.available}
                         </a>
                     </h5>
                     <h5 class="card-title">
-                        <a href="#comicsContainer">
+                        <a href="#seriesContainer">
                             Series: ${hero.series.available}
                         </a>
                     </h5>
