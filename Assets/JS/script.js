@@ -197,7 +197,7 @@ const iconClick = (event) =>{
 		// store the hero inside the localstorage to show hero's page
 		localStorage.setItem('heroId',heroId);
 		// redirect user to superhero page
-		window.location.href = "../../Pages/Superhero.html";
+		window.location.href = "./Pages/Superhero.html";
 		return;
 	}
 }
