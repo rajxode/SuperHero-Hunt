@@ -21,10 +21,9 @@ const listContainer = document.getElementById('heroContainer');
 const favBtn = document.getElementsByClassName('cardBtn');
 
 function addHeroToDisplay(hero){
-    // creating html element 'li'
+    // creating html element 'div'
 	var div=document.createElement('div');
     // inner data of div element
-    // with alarm time and a delete button
 	div.classList.add("card","mb-3","cardItem");
 	div.setAttribute('value',hero.id);
 
@@ -50,7 +49,7 @@ function addHeroToDisplay(hero){
 
 const renderList = (list) => {
 	if(list.length === 0 || false ){
-		listContainer.innerHTML='Nothing to show!!';
+		listContainer.innerHTML='<h1 class="m-auto">Sorry, Nothing to show, Try something different !!</h1>';
 		return;
 	}
 	listContainer.innerHTML='';

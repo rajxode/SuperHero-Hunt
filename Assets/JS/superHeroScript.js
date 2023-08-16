@@ -45,24 +45,25 @@ const renderHeroInfo = (hero) => {
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title" value=${hero.id}>${hero.name}</h5>
+                    <h5 class="card-title text-danger" value=${hero.id}>${hero.name}</h5>
                     <p class="card-text text-light">${hero.description}</p>
+
                     <h5 class="card-title">
-                        <a href="#storiesContainer">
+                        <a href="#storiesContainer" class="text-danger">
                             Stories:${hero.stories.available}
                         </a>
                     </h5>
                     <h5 class="card-title">
-                        <a href="#comicsContainer">
+                        <a href="#comicsContainer" class="text-danger">
                             Comics: ${hero.comics.available}
                         </a>
                     </h5>
                     <h5 class="card-title">
-                        <a href="#seriesContainer">
+                        <a href="#seriesContainer" class="text-danger">
                             Series: ${hero.series.available}
                         </a>
                     </h5>
-                    <p class="card-text"><small class="text-light">Last updated ${hero.modified.toString().slice(0,10)}</small></p>
+                    <p class="card-text"><small>Last updated ${hero.modified.toString().slice(0,10)}</small></p>
                 </div>
             </div>
         </div>
@@ -76,20 +77,20 @@ const addCardToDisplay = (card,type) => {
     console.log(card,type);
     var div = document.createElement('div');
 
-    div.classList.add("card","mb-3","text-bg-danger");
+    div.classList.add("col");
 	div.setAttribute('style',"max-width: 18rem;");
 
     // <div class="card border-success mb-3" style="max-width: 18rem;">
     div.innerHTML = `
-        <div class="card-body">
-            <h5 class="card-title text-dark">${card.title}</h5>
-            <p class="card-text ">${card.description}</p>
-        </div>
-        <div class="card-footer bg-transparent border-dark">
-            <p class="card-text text-danger-emphasis"><small>Last updated ${card.modified.toString().slice(0,10)}</small></p>
+        <div class="card h-100 smallCard">
+            <div class="card-body">
+                <h5 class="card-title text-danger">${card.title}</h5>
+            </div>
+            <div class="card-footer bg-transparent border-danger-subtle">
+                <p class="card-text"><small>Last updated ${card.modified.toString().slice(0,10)}</small></p>
+            </div>
         </div>
     `;
-    // </div>
     if(type === "story"){
         storyBox.append(div);
     }
@@ -103,7 +104,10 @@ const addCardToDisplay = (card,type) => {
 
 
 const renderComics= (comicsList) => {
-    comicsList.map((comic) => {
+    comicsList.map((comic,i) => {
+        if( i > 7){
+            return;
+        }
         const url = comic.resourceURI;
         const result = fetchDocument(url);
         result.then(function(document){
@@ -113,7 +117,10 @@ const renderComics= (comicsList) => {
 }
 
 const renderSeries= (seriesList) => {
-    seriesList.map((series) => {
+    seriesList.map((series,i) => {
+        if( i > 7){
+            return;
+        }
         const url = series.resourceURI;
         const result = fetchDocument(url);
         result.then(function(document){
@@ -123,7 +130,10 @@ const renderSeries= (seriesList) => {
 }
 
 const renderStories= (storiesList) => {
-    storiesList.map((story) => {
+    storiesList.map((story,i) => {
+        if( i > 7){
+            return;
+        }
         const url = story.resourceURI;
         const result = fetchDocument(url);
         result.then(function(document){
@@ -138,6 +148,7 @@ const initialize = () => {
     const url = `characters/${heroId}`;
     const result = fetchApi(url);
     result.then(function(hero){
+        console.log(hero);
         pageTitle.innerHTML = `${hero.name} | Superhero`;
         renderHeroInfo(hero);
         renderStories(hero.stories.items);

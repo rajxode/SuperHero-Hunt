@@ -73,6 +73,13 @@ const buttonClick = (event) => {
         removeFromFav(target.value);
         return;
     }
+
+    else if(target.className === "card-img-top" || target.className === "card-title"){
+		const heroId = target.getAttribute('value');
+		localStorage.setItem('heroId',heroId);
+		window.location.href = "./Superhero.html";
+		return;
+	}
 }
 
 
