@@ -1,0 +1,9 @@
+
+api call limit = 3000 calls per day
+
+
+timeStamp: 1
+
+public key: c3f4ed990ef754516e046c67291af987
+
+hash key: 0dd23907783ca4f0d5306f874e305f85  {md5(ts+privateKey+publicKey)}

@@ -17,7 +17,10 @@ const seriesBox = document.getElementById('seriesContainer');
 const comicBox = document.getElementById('comicsContainer');
 
 
+
 // fetching hero from api 
+// fetching all the stories , series and comics related to the hero
+// for differnt url different data
 const fetchApi = async (urlString) => {
     try{
         // getting response
@@ -34,24 +37,6 @@ const fetchApi = async (urlString) => {
     }
 }
 
-
-// fetching all the stories , series and comics related to the hero
-// for differnt url different data
-const fetchDocument = async (urlString) => {
-    try{
-        // getting response
-        const response = await fetch(`${urlString}?ts=1&apikey=c3f4ed990ef754516e046c67291af987&hash=0dd23907783ca4f0d5306f874e305f85`);
-        // converting to json
-        const data = await response.json();
-        // store and return data
-        const document = data.data.results[0];
-        return document;
-
-    }catch(err){
-        // if some error
-        console.warn('Something went wrong.', err);
-    }
-}
 
 
 // to display hero's info card on screen
@@ -152,9 +137,9 @@ const renderComics= (comicsList) => {
         }
 
         // getting the comic url form array
-        const url = comic.resourceURI;
+        const url = comic.resourceURI.slice(36);
         // getting result from fetch function
-        const result = fetchDocument(url);
+        const result = fetchApi(url);
         result.then(function(document){
             // display the result to the display
             addCardToDisplay(document,"comic");
@@ -175,9 +160,9 @@ const renderSeries= (seriesList) => {
         }
 
         // getting url from the list
-        const url = series.resourceURI;
-        // getting result from api
-        const result = fetchDocument(url);
+        const url = series.resourceURI.slice(36);
+        // getting result from fetch function
+        const result = fetchApi(url);
         result.then(function(document){
             // display the result on screen
             addCardToDisplay(document,"series");
@@ -195,9 +180,9 @@ const renderStories= (storiesList) => {
             return;
         }
         // getting story url
-        const url = story.resourceURI;
-        // getting result
-        const result = fetchDocument(url);
+        const url = story.resourceURI.slice(36);
+        // getting result from fetch function
+        const result = fetchApi(url);
         result.then(function(document){
             // display the result on screen
             addCardToDisplay(document,"story");
