@@ -24,6 +24,8 @@
     height: 45px;
 }
 
+
+/* styles for all the small card of story, comic, series */
 .smallCard{
     box-shadow: 0px 0px 4px 1px #a19c9c;
     background-color: #272829;
