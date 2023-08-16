@@ -17,8 +17,6 @@ const toastMessage = document.querySelector('.toast-body');
 
 const addFavToDisplay = (hero) => {
     var div=document.createElement('div');
-    // inner data of div element
-    // with alarm time and a delete button
 	div.classList.add("card","mb-3","cardItem");
 	div.setAttribute('value',hero.id);
 

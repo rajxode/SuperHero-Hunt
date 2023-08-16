@@ -3,104 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- small icon in the browser tab -->
     <link rel="icon" type="image/png" href="../Assets/Images/favicon.png" >
+
+    <!-- page title -->
+    <!-- title will be changed dyanamically by the heros name -->
     <title>SuperHero</title>
+
+    <!-- bootstarp link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
         rel="stylesheet" 
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
         crossorigin="anonymous">
+
+    <!-- common style sheet to reuse the code -->
     <link rel="stylesheet" href="../Assets/CSS/styles.css" >
+
+    <!-- stylesheet for superhero.html page -->
     <link rel="stylesheet" href="../Assets/CSS/singleHero.css" >
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top bg-dark" data-bs-theme="dark">
-      <div class="container-fluid mx-3">
+
+  <!-- nav bar with brand name and link to other pages -->
+  <nav class="navbar navbar-expand-lg sticky-top bg-dark" data-bs-theme="dark">
+    
+    <!-- nav container with  -->
+    <div class="container-fluid mx-3">
+      
+      <!-- site name and logo with link to homepage -->
+      <a class="navbar-brand" href="../index.html">
         
-        <a class="navbar-brand" href="../index.html">
-          <img src="/Assets/Images/logo.png" 
-              alt="" width="70" height="29" 
-              class="d-inline-block align-text-top">
-          <span class="h3">
-              SuperHero Hunter
-          </span>
-        </a>
-
-        <button class="navbar-toggler" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" 
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" 
-                aria-label="Toggle navigation">
-
-          <span class="navbar-toggler-icon"></span>
-          
-        </button>
+        <!-- site logo -->
+        <img src="/Assets/Images/logo.png" 
+            alt="" width="70" height="29" 
+            class="d-inline-block align-text-top">
         
-        <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
-          <div class="d-flex">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
-                <li class="nav-item">
-                    <a class="nav-link active text-danger"  href="#">
-                        <strong class="h5">SuperHero</strong>
-                    </a>
-                  </li>
+        <!-- name of site -->
+        <span class="h3">
+            SuperHero Hunter
+        </span>
 
-                <li class="nav-item">
-                  <a class="nav-link"  href="../index.html">Home</a>
-                </li>
+      </a>
 
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="./Favourite.html">Favourite</a>
-                </li>
 
-              </ul>
+      <!-- hidden menu button visible on small screen -->
+      <button class="navbar-toggler" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" 
+              aria-controls="navbarTogglerDemo02" aria-expanded="false" 
+              aria-label="Toggle navigation">
+        
+        <!-- menu icon -->
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+
+      <!-- div containing link to other html pages -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
+        
+        <!-- link list -->
+        <div class="d-flex">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            <!-- link of current active SuperHero page -->
+            <li class="nav-item">
+                <a class="nav-link active text-danger"  href="#">
+                    <strong class="h5">SuperHero</strong>
+                </a>
+              </li>
+
+            <!-- link to the homepage -->
+            <li class="nav-item">
+              <a class="nav-link"  href="../index.html">Home</a>
+            </li>
+
+            <!-- link to the favourite hero page -->
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="./Favourite.html">Favourite</a>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    
+    </div>
+
+  </nav>
+
+  <!-- div containing main page  -->
+  <div class="d-flex flex-column align-items-center w-100 pt-5">
+
+
+    <!-- info container of the superhero -->
+    <!-- info card will be added dynamically -->
+    <div id="infoCardContainer" class="d-flex justify-content-around 
+                                        align-items-center w-75">
+
+      <!-- dynamically added info card of hero -->
+      <!-- 
+        <div class="card mb-3 w-75 cardbg">
+          <div class="row g-0">
+            <div class="col-md-4">
+                <img src=${hero.thumbnail.path}.${hero.thumbnail.extension} 
+                    class="card-img-top" alt=${hero.name}
+                    value=${hero.id}>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title text-danger" value=${hero.id}>${hero.name}</h5>
+                    <p class="card-text text-light">${hero.description}</p>
+
+                    <h5 class="card-title">
+                        <a href="#storiesContainer" class="text-danger">
+                            Stories:${hero.stories.available}
+                        </a>
+                    </h5>
+                    <h5 class="card-title">
+                        <a href="#comicsContainer" class="text-danger">
+                            Comics: ${hero.comics.available}
+                        </a>
+                    </h5>
+                    <h5 class="card-title">
+                        <a href="#seriesContainer" class="text-danger">
+                            Series: ${hero.series.available}
+                        </a>
+                    </h5>
+                    <p class="card-text"><small>Last updated ${hero.modified.toString().slice(0,10)}</small></p>
+                </div>
+            </div>
+          </div>
+        </div> 
+      -->
+    </div>
+
+
+    <!-- Stories section heading with image icon -->
+    <h1 class="mt-2">
+      <img src="../Assets/Images/story.png" alt="stories" class="heading-icon">
+      Stories
+    </h1>
+    
+    <!-- horizontal line -->
+    <hr class="border border-danger border-2 w-75">
+
+    <!-- stories container  -->
+    <!-- items will be added dyanmically -->
+    <div id="storiesContainer" class="row row-cols-1 row-cols-md-3 g-4 w-75">
+      
+      <!-- layout of dyanmically added story card -->
+      <!--
+        <div class="col" style="max-width: 18rem;">
+          <div class="card h-100 smallCard">
+            <div class="card-body">
+                <h5 class="card-title text-danger">${card.title}</h5>
+            </div>
+            <div class="card-footer bg-transparent border-danger-subtle">
+                <p class="card-text"><small>Last updated ${card.modified.toString().slice(0,10)}</small></p>
+            </div>
           </div>
         </div>
-      
-      </div>
-    </nav>
-
-    <div class="d-flex flex-column align-items-center w-100 pt-5">
-
-      <div id="infoCardContainer" class="d-flex justify-content-around 
-                                          align-items-center w-75">
-
-      </div>
-
-      <h1 class="mt-2">
-        <img src="../Assets/Images/story.png" alt="stories" class="heading-icon">
-        Stories
-      </h1>
-      
-      <hr class="border border-danger border-2 w-75">
-      <div id="storiesContainer" class="row row-cols-1 row-cols-md-3 g-4 w-75">
-
-      </div>
-
-      <h1 class="mt-2">
-        <img src="../Assets/Images/series.png" alt="series" class="heading-icon">
-        Series
-      </h1>
-      <hr class="border border-danger border-2 w-75">
-      <div id="seriesContainer" class="row row-cols-1 row-cols-md-3 g-4 w-75">                        
-
-      </div>
-
-      <h1 class="mt-2">
-        <img src="../Assets/Images/comic.png" alt="comic" class="heading-icon">
-        Comics
-      </h1>
-      <hr class="border border-danger border-2 w-75">
-      <div id="comicsContainer" class="row row-cols-1 row-cols-md-3 g-4 w-75">
-
-      </div>
-
+      -->
 
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" 
-        crossorigin="anonymous"></script>
-    <script src="../Assets/JS/superHeroScript.js"></script>
+
+    <!-- heading of series section with image -->
+    <h1 class="mt-2">
+      <img src="../Assets/Images/series.png" alt="series" class="heading-icon">
+      Series
+    </h1>
+
+    <!-- horizontal line -->
+    <hr class="border border-danger border-2 w-75">
+    
+    <!-- series container -->
+    <!-- items will be added dyanamically -->
+    <div id="seriesContainer" class="row row-cols-1 row-cols-md-3 g-4 w-75">                        
+
+      <!-- layout of dynamically added card item for series -->
+      <!--
+        <div class="col" style="max-width: 18rem;">
+          <div class="card h-100 smallCard">
+            <div class="card-body">
+                <h5 class="card-title text-danger">${card.title}</h5>
+            </div>
+            <div class="card-footer bg-transparent border-danger-subtle">
+                <p class="card-text"><small>Last updated ${card.modified.toString().slice(0,10)}</small></p>
+            </div>
+          </div>
+        </div>
+      -->
+    </div>
+
+
+
+    <!-- heading comic section with image -->
+    <h1 class="mt-2">
+      <img src="../Assets/Images/comic.png" alt="comic" class="heading-icon">
+      Comics
+    </h1>
+
+    <!-- horizontal line -->
+    <hr class="border border-danger border-2 w-75">
+
+    <!-- comics container -->
+    <!-- items will be added dyanamically -->
+    <div id="comicsContainer" class="row row-cols-1 row-cols-md-3 g-4 w-75">
+
+      <!-- layout of comic cards -->
+      <!--
+        <div class="col" style="max-width: 18rem;">
+          <div class="card h-100 smallCard">
+            <div class="card-body">
+                <h5 class="card-title text-danger">${card.title}</h5>
+            </div>
+            <div class="card-footer bg-transparent border-danger-subtle">
+                <p class="card-text"><small>Last updated ${card.modified.toString().slice(0,10)}</small></p>
+            </div>
+          </div>
+        </div>
+      -->
+
+    </div>
+
+  </div>
+
+
+  <!-- bootstrap script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" 
+      crossorigin="anonymous"></script>
+  
+  <!-- script for suprehero.html page -->
+  <script src="../Assets/JS/superHeroScript.js"></script>
 </body>
 </html>
